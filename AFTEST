@@ -1,0 +1,26 @@
+function autoFillGoogleDocFromForm(e) {
+  var timestamp = e.values[0];
+  var customerfirstName = e.values[1];
+  var customerlastName = e.values[2];
+  var accountnumber = e.values[3];
+
+  var templateFile = DriveApp.getFileById("1mbAxu0zcFjG04n93tz5a2FWBrmXit5OZHy6xEQsRKTA");
+  var templateResponseFolder = DriveApp.getFolderById("1VJ8C7-hJaJZosW9XpgWyZCleJLgYlVVd");
+
+  var copy = templateFile.makeCopy(customerlastName + ', ' + customerfirstName, templateResponseFolder);
+  
+  var doc = DocumentApp.openById(copy.getId());
+
+  var body = doc.getBody();
+
+  body.replaceText("{{CustomerFirstName}}", customerfirstName);
+  body.replaceText("{{CustomerLastName}}", customerlastName);
+  body.replaceText("{{AccountNumber}}", accountnumber);
+
+  doc.saveAndClose();
+
+
+
+
+
+}
